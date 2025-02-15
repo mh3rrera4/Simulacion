@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iniciando", "Iniciando\Inic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculadora", "Calculadora\Calculadora.csproj", "{0B544CD0-4FEB-4870-8E1F-181F0F02A8B2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arreglo", "Arreglo\Arreglo.csproj", "{AD7F764B-11D2-4A55-B85A-41EF778B7258}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,18 @@ Global
 		{0B544CD0-4FEB-4870-8E1F-181F0F02A8B2}.Release|x64.Build.0 = Release|Any CPU
 		{0B544CD0-4FEB-4870-8E1F-181F0F02A8B2}.Release|x86.ActiveCfg = Release|Any CPU
 		{0B544CD0-4FEB-4870-8E1F-181F0F02A8B2}.Release|x86.Build.0 = Release|Any CPU
+		{AD7F764B-11D2-4A55-B85A-41EF778B7258}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD7F764B-11D2-4A55-B85A-41EF778B7258}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD7F764B-11D2-4A55-B85A-41EF778B7258}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{AD7F764B-11D2-4A55-B85A-41EF778B7258}.Debug|x64.Build.0 = Debug|Any CPU
+		{AD7F764B-11D2-4A55-B85A-41EF778B7258}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AD7F764B-11D2-4A55-B85A-41EF778B7258}.Debug|x86.Build.0 = Debug|Any CPU
+		{AD7F764B-11D2-4A55-B85A-41EF778B7258}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD7F764B-11D2-4A55-B85A-41EF778B7258}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD7F764B-11D2-4A55-B85A-41EF778B7258}.Release|x64.ActiveCfg = Release|Any CPU
+		{AD7F764B-11D2-4A55-B85A-41EF778B7258}.Release|x64.Build.0 = Release|Any CPU
+		{AD7F764B-11D2-4A55-B85A-41EF778B7258}.Release|x86.ActiveCfg = Release|Any CPU
+		{AD7F764B-11D2-4A55-B85A-41EF778B7258}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
