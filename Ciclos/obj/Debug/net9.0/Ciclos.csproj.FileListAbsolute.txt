@@ -1,0 +1,15 @@
+C:\Users\herre\OneDrive\Escritorio\Simulacionn2\Ciclos\bin\Debug\net9.0\Ciclos.exe
+C:\Users\herre\OneDrive\Escritorio\Simulacionn2\Ciclos\bin\Debug\net9.0\Ciclos.deps.json
+C:\Users\herre\OneDrive\Escritorio\Simulacionn2\Ciclos\bin\Debug\net9.0\Ciclos.runtimeconfig.json
+C:\Users\herre\OneDrive\Escritorio\Simulacionn2\Ciclos\bin\Debug\net9.0\Ciclos.dll
+C:\Users\herre\OneDrive\Escritorio\Simulacionn2\Ciclos\bin\Debug\net9.0\Ciclos.pdb
+C:\Users\herre\OneDrive\Escritorio\Simulacionn2\Ciclos\obj\Debug\net9.0\Ciclos.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\herre\OneDrive\Escritorio\Simulacionn2\Ciclos\obj\Debug\net9.0\Ciclos.AssemblyInfoInputs.cache
+C:\Users\herre\OneDrive\Escritorio\Simulacionn2\Ciclos\obj\Debug\net9.0\Ciclos.AssemblyInfo.cs
+C:\Users\herre\OneDrive\Escritorio\Simulacionn2\Ciclos\obj\Debug\net9.0\Ciclos.csproj.CoreCompileInputs.cache
+C:\Users\herre\OneDrive\Escritorio\Simulacionn2\Ciclos\obj\Debug\net9.0\Ciclos.sourcelink.json
+C:\Users\herre\OneDrive\Escritorio\Simulacionn2\Ciclos\obj\Debug\net9.0\Ciclos.dll
+C:\Users\herre\OneDrive\Escritorio\Simulacionn2\Ciclos\obj\Debug\net9.0\refint\Ciclos.dll
+C:\Users\herre\OneDrive\Escritorio\Simulacionn2\Ciclos\obj\Debug\net9.0\Ciclos.pdb
+C:\Users\herre\OneDrive\Escritorio\Simulacionn2\Ciclos\obj\Debug\net9.0\Ciclos.genruntimeconfig.cache
+C:\Users\herre\OneDrive\Escritorio\Simulacionn2\Ciclos\obj\Debug\net9.0\ref\Ciclos.dll
