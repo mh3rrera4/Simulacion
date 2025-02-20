@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\herre\\OneDrive\\Escritorio\\Simulacionn2\\Iniciando\\Iniciando.csproj": {}
+    "C:\\Users\\herre\\OneDrive\\Escritorio\\Simulacionn2\\Ciclos\\Ciclos.csproj": {}
   },
   "projects": {
-    "C:\\Users\\herre\\OneDrive\\Escritorio\\Simulacionn2\\Iniciando\\Iniciando.csproj": {
+    "C:\\Users\\herre\\OneDrive\\Escritorio\\Simulacionn2\\Ciclos\\Ciclos.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\herre\\OneDrive\\Escritorio\\Simulacionn2\\Iniciando\\Iniciando.csproj",
-        "projectName": "Iniciando",
-        "projectPath": "C:\\Users\\herre\\OneDrive\\Escritorio\\Simulacionn2\\Iniciando\\Iniciando.csproj",
+        "projectUniqueName": "C:\\Users\\herre\\OneDrive\\Escritorio\\Simulacionn2\\Ciclos\\Ciclos.csproj",
+        "projectName": "Ciclos",
+        "projectPath": "C:\\Users\\herre\\OneDrive\\Escritorio\\Simulacionn2\\Ciclos\\Ciclos.csproj",
         "packagesPath": "C:\\Users\\herre\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\herre\\OneDrive\\Escritorio\\Simulacionn2\\Iniciando\\obj\\",
+        "outputPath": "C:\\Users\\herre\\OneDrive\\Escritorio\\Simulacionn2\\Ciclos\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
