@@ -5,7 +5,7 @@ using System;
 using System.Collections;
 using System.Reflection.Metadata;
                                     //Esta madre es el que separará las clases.
-namespace ciclosycondiciones;       //Ya que todas las clases iran en un solo archivo.
+namespace ciclosycondiciones;       //<-- Ya que todas las clases iran en un solo archivo.
     class Program{
         public static void Main(){
             /*-CICLOS ASÍ INFINITOS ALV
