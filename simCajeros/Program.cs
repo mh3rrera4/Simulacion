@@ -1,11 +1,21 @@
-﻿namespace Cajero;
+﻿
+using System.Linq.Expressions;
+
+namespace Cajero;
     class Program{
+
+        // Función para generar números aleatorios con distribución exponencial
+        static double GenerarExponencial(double tasaPromedio, Random random){
+            double lambda  = 1.0 / tasaPromedio;
+	        return -Math.Log(1.0 - random.NextDouble()) / lambda;
+        }
+
         static void Main(string[] args){
             // Parámetros de la simulación
-            int totalClientes = 15;                     // Número total de clientes que llegan
-            double tasaLlegada = 5 * 60;                // Tiempo promedio entre llegadas (en segundos)
+            int totalClientes = 5;                     // Número total de clientes que llegan
+            double tasaLlegada = 30;                // Tiempo promedio entre llegadas (sgnds convrt a min)
             double tiempoServicioPromedio = 2 * 60;     // Tiempo promedio de servicio por cliente (en segundos)
-            int numCajeros = 3;                         // Número de cajeros disponibles
+            int numCajeros = 2;                         // Número de cajeros disponibles
 
             // Variables para registrar métricas
             Queue<double> cola = new Queue<double>();                           // Cola de clientes
@@ -20,10 +30,14 @@
                 double tiempoLlegada = tiempoActual + GenerarExponencial(tasaLlegada, aleatorio);
 
                 // Encontrar el primer cajero disponible
-                int indiceCajero = cajeros.IndexOf(Math.Min(cajeros[0], cajeros[1]));
+                double tiempoMinimoLiberacion = cajeros.Min(); // Encuentra el valor mínimo (tiempo más temprano) en TODA la lista.
+                int indiceCajero = cajeros.IndexOf(tiempoMinimoLiberacion); // Encuentra el índice (posición) de ese valor mínimo.
+
                 double tiempoInicioServicio = Math.Max(cajeros[indiceCajero], tiempoLlegada);
-                double tiempoServicio = tiempoInicioServicio + GenerarExponencial(tiempoServicioPromedio, aleatorio);
-                cajeros[indiceCajero] = tiempoServicio;
+
+                double duracionServicio = tiempoInicioServicio + GenerarExponencial(tiempoServicioPromedio, aleatorio);
+
+                cajeros[indiceCajero] = duracionServicio;
 
                 // Calcular el tiempo de espera de este cliente
                 double tiempoEspera = tiempoInicioServicio - tiempoLlegada;
@@ -42,9 +56,4 @@
             
             Console.WriteLine($"Tiempo promedio de espera: {minutos} minutos y {segundos} segundos");
         }
-
-        // Función para generar números aleatorios con distribución exponencial
-        static double GenerarExponencial(double lambda, Random random){
-	    return -Math.Log(1.0 - random.NextDouble()) / lambda;
-}
     }

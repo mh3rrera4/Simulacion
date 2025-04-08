@@ -13,3 +13,18 @@ C:\Users\herre\OneDrive\Escritorio\Simulacionn2\simCajeros\obj\Debug\net9.0\refi
 C:\Users\herre\OneDrive\Escritorio\Simulacionn2\simCajeros\obj\Debug\net9.0\simCajeros.pdb
 C:\Users\herre\OneDrive\Escritorio\Simulacionn2\simCajeros\obj\Debug\net9.0\simCajeros.genruntimeconfig.cache
 C:\Users\herre\OneDrive\Escritorio\Simulacionn2\simCajeros\obj\Debug\net9.0\ref\simCajeros.dll
+C:\Users\Miguel Herrera\Desktop\Simulacionn2\simCajeros\bin\Debug\net9.0\simCajeros.exe
+C:\Users\Miguel Herrera\Desktop\Simulacionn2\simCajeros\bin\Debug\net9.0\simCajeros.deps.json
+C:\Users\Miguel Herrera\Desktop\Simulacionn2\simCajeros\bin\Debug\net9.0\simCajeros.runtimeconfig.json
+C:\Users\Miguel Herrera\Desktop\Simulacionn2\simCajeros\bin\Debug\net9.0\simCajeros.dll
+C:\Users\Miguel Herrera\Desktop\Simulacionn2\simCajeros\bin\Debug\net9.0\simCajeros.pdb
+C:\Users\Miguel Herrera\Desktop\Simulacionn2\simCajeros\obj\Debug\net9.0\simCajeros.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Miguel Herrera\Desktop\Simulacionn2\simCajeros\obj\Debug\net9.0\simCajeros.AssemblyInfoInputs.cache
+C:\Users\Miguel Herrera\Desktop\Simulacionn2\simCajeros\obj\Debug\net9.0\simCajeros.AssemblyInfo.cs
+C:\Users\Miguel Herrera\Desktop\Simulacionn2\simCajeros\obj\Debug\net9.0\simCajeros.csproj.CoreCompileInputs.cache
+C:\Users\Miguel Herrera\Desktop\Simulacionn2\simCajeros\obj\Debug\net9.0\simCajeros.sourcelink.json
+C:\Users\Miguel Herrera\Desktop\Simulacionn2\simCajeros\obj\Debug\net9.0\simCajeros.dll
+C:\Users\Miguel Herrera\Desktop\Simulacionn2\simCajeros\obj\Debug\net9.0\refint\simCajeros.dll
+C:\Users\Miguel Herrera\Desktop\Simulacionn2\simCajeros\obj\Debug\net9.0\simCajeros.pdb
+C:\Users\Miguel Herrera\Desktop\Simulacionn2\simCajeros\obj\Debug\net9.0\simCajeros.genruntimeconfig.cache
+C:\Users\Miguel Herrera\Desktop\Simulacionn2\simCajeros\obj\Debug\net9.0\ref\simCajeros.dll
