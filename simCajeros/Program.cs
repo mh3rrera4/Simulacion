@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 namespace Cajero;
     class Program{
 
+
         // Función para generar números aleatorios con distribución exponencial
         static double GenerarExponencial(double tasaPromedio, Random random){
             double lambda  = 1.0 / tasaPromedio;
@@ -12,9 +13,9 @@ namespace Cajero;
 
         static void Main(string[] args){
             // Parámetros de la simulación
-            int totalClientes = 5;                     // Número total de clientes que llegan
-            double tasaLlegada = 30;                // Tiempo promedio entre llegadas (sgnds convrt a min)
-            double tiempoServicioPromedio = 2 * 60;     // Tiempo promedio de servicio por cliente (en segundos)
+            int totalClientes = 100;                     // Número total de clientes que llegan
+            double tasaLlegada = 60;                // Tiempo promedio entre llegadas (sgnds convrt a min)
+            double tiempoServicioPromedio = 4 * 60;     // Tiempo promedio de servicio por cliente (en segundos)
             int numCajeros = 2;                         // Número de cajeros disponibles
 
             // Variables para registrar métricas
@@ -27,24 +28,22 @@ namespace Cajero;
             // MOTOR: Simulación de llegada y atención de clientes
             for (int i = 0; i < totalClientes; i++){
                 // Generar el tiempo de llegada del próximo cliente
-                double tiempoLlegada = tiempoActual + GenerarExponencial(tasaLlegada, aleatorio);
+                double intervaloLlegada = GenerarExponencial(tasaLlegada, aleatorio);
+                tiempoActual += intervaloLlegada;
 
                 // Encontrar el primer cajero disponible
                 double tiempoMinimoLiberacion = cajeros.Min(); // Encuentra el valor mínimo (tiempo más temprano) en TODA la lista.
                 int indiceCajero = cajeros.IndexOf(tiempoMinimoLiberacion); // Encuentra el índice (posición) de ese valor mínimo.
 
-                double tiempoInicioServicio = Math.Max(cajeros[indiceCajero], tiempoLlegada);
+                double tiempoInicioServicio = Math.Max(cajeros[indiceCajero], tiempoActual);
 
-                double duracionServicio = tiempoInicioServicio + GenerarExponencial(tiempoServicioPromedio, aleatorio);
+                double duracionServicio = GenerarExponencial(tiempoServicioPromedio, aleatorio);
 
-                cajeros[indiceCajero] = duracionServicio;
+                cajeros[indiceCajero] = tiempoInicioServicio + duracionServicio;
 
                 // Calcular el tiempo de espera de este cliente
-                double tiempoEspera = tiempoInicioServicio - tiempoLlegada;
+                double tiempoEspera = tiempoInicioServicio - tiempoActual;
                 tiempoEsperaTotal += tiempoEspera;
-
-                // Actualizar el tiempo actual
-                tiempoActual = tiempoLlegada;
             }
 
             // Calcular y mostrar métricas en segundos
