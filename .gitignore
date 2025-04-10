@@ -398,3 +398,17 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# Carpetas de compilación
+[Oo]bj/
+[Bb]in/
+
+# Archivos específicos que aparecen en tu repositorio
+*.nuget.dgspec.json
+*.nuget.g.props
+*.AssemblyInfo.cs
+*.AssemblyInfoInputs.cache
+*.GeneratedMSBuildEditorConfig.editorconfig
+*.assets.cache
+project.assets.json
+project.nuget.cache
