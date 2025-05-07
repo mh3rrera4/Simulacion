@@ -18,15 +18,21 @@ class Program
         
         double tiempoActual = 0;
         
+        /* Generador Aleatorio*/
+        Random aleatorio = new Random();
+        
         Console.WriteLine($"t=0.0: || Simulación Iniciada 😎. || Mercado={mercadoTotal}");
         
 
         /*RRUN RRUN*/
         while (tiempoActual < duracionDeSimulacion)
         {
-            // Avanzamos
-            tiempoActual += intervaloDeTiempo;
+            /*Avanzamos*/
+            double tiempoHastaProximoEvento = GenerarExponencial(intervaloDeTiempo, aleatorio);
+            tiempoActual += tiempoHastaProximoEvento;
             
+            if (tiempoActual > duracionDeSimulacion)
+                break;
             
             double fraccionAdoptantes = adoptadoresAcumulados / mercadoTotal;
                                                                                 
@@ -39,12 +45,28 @@ class Program
                 double adopcionInnovacion = coficienteInnovacion * adoptadoresPotenciales;
                 double adopcionImitacion = coeficienteImitacion * fraccionAdoptantes * adoptadoresPotenciales;
                 
-                double nuevosAdoptadoresEsperados = (adopcionInnovacion + adopcionImitacion) * intervaloDeTiempo;
-                int nuevosAdoptadores = (int)Math.Round(nuevosAdoptadoresEsperados);
+                double tasaAdopcionTotal = adopcionInnovacion + adopcionImitacion;
                 
+                int nuevosAdoptadores = 1; /*Cada evento de adopcion, al menos una persona adopta*/
+                
+
+                // Con probabilidad proporcional a la tasa, podríamos tener más adoptantes en el mismo evento
+                if (tasaAdopcionTotal > 1.0){
+                    /*Representamos multiples adopciones simultaneas*/
+
+                        /*Cuando la tasa de adopcion es alta es razonable que varias personas adopten 
+                        el producto casi al mismo tiempo (por ejemplo, un grupo de amigos que compra un 
+                        nuevo gadget el mismo día). En lugar de modelar cada una de estas adopciones como 
+                        eventos separados, los agrupamos en un solo evento con múltiples adoptantes.*/
+
+                    nuevosAdoptadores = (int)Math.Round(tasaAdopcionTotal * tiempoHastaProximoEvento);
+                        
+                }                                      
+                
+
                 /*--Seguros antes de añadir--*/
                 nuevosAdoptadores = Math.Min(nuevosAdoptadores, (int)adoptadoresPotenciales);
-                nuevosAdoptadores = Math.Max(0, nuevosAdoptadores);
+                nuevosAdoptadores = Math.Max(1, nuevosAdoptadores); // Al menos 1 adoptante por evento
                 
                 adoptadoresAcumulados += nuevosAdoptadores;
                 
@@ -56,6 +78,11 @@ class Program
                                  $"Total={adoptadoresAcumulados:F0} " +
                                  $"({adoptadoresAcumulados / mercadoTotal * 100:F1}%)");
             }
+            else
+            {
+                // Si ya no quedan adoptantes potenciales, terminamos
+                break;
+            }
         }
         
         /*Mensaje Final*/
@@ -65,5 +92,9 @@ class Program
         
         Console.WriteLine("\nPresiona cualquier tecla para salir...");
         Console.ReadKey();
+    }
+    static double GenerarExponencial(double tasaPromedio, Random random){
+        double lambda = 1.0 / tasaPromedio;
+        return -Math.Log(1.0 - random.NextDouble()) / lambda;
     }
 }
