@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Net.Http.Headers;
 using System.Reflection;
+using System.Security.Cryptography;
 /*Interfaz Base*/
 public interface IEvent{
     double Timestamp {get;}
@@ -154,6 +155,24 @@ public class SimulationEndEvent : IEvent{
         Console.WriteLine($"\n--- Simulación Finalizada 🎉 en T={engine.CurrentTime:F2} ---");
         Console.WriteLine($"Total Adoptantes Finales: {state.CumulativeAdopters:F0} / {state.TotalMarketSize}" +
                           $"{state.CumulativeAdopters / state.TotalMarketSize * 100}%");
+    }
+}
+
+/*Función de Generación Exponencial (POISSON)*/
+public class generadorExponencialPoisson
+{
+    public static int poisson(double lambda, Random random)
+    {
+        double L = Math.Exp(-lambda);
+        double p = 1.0;
+        int k = 0;
+
+        do
+        {
+            k++;
+            p *= random.NextDouble();
+        } while (p > L);
+        return k - 1;
     }
 }
 
