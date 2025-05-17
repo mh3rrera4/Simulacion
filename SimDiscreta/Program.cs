@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design.Serialization;
 using System.Data;
 using System.Net.Http.Headers;
 using System.Reflection;
@@ -158,6 +159,7 @@ public class SimulationEndEvent : IEvent{
     }
 }
 
+
 /*Función de Generación Exponencial (POISSON)*/
 public class generadorExponencialPoisson
 {
@@ -173,6 +175,36 @@ public class generadorExponencialPoisson
             p *= random.NextDouble();
         } while (p > L);
         return k - 1;
+    }
+}
+
+public class GeneracionCongruencial{
+    private long _seed;
+    private readonly long _a;
+    private readonly long _c;
+    private readonly long _m;
+
+    public GeneracionCongruencial(long seed, long a = 1103515245, long c = 12345, long m = 2147483648){
+        _seed = seed;
+        _a = a;
+        _c = c;
+        _m = m;
+    }
+
+    //Genera el sig núm pseudo-aleatorio
+    public long NextLong(){
+        _seed = (_a*_seed+_c) % _m;
+        return _seed;
+    }
+
+    //Genera un núm aleatorio (0-1)
+    public double NextDouble(){
+        return (double)NextLong() / _m;
+    }
+
+    //Genera un int aleatorio entre min y max
+    public int Next(int min, int max){
+        return min + (int)(NextDouble() * (max-min));
     }
 }
 
