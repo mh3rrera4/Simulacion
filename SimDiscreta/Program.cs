@@ -11,6 +11,7 @@ public interface IEvent{
     void Execute(SimulationState state, SimulationEngine engine);
 }
 
+
 /*Estado de la Simulacion*/
 public class SimulationState{
     public double CumulativeAdopters { get; set; }
@@ -20,13 +21,16 @@ public class SimulationState{
     public double TotalMarketSize { get; private set; }
     public double InnovationCoefficent { get; private set; }
     public double ImitationCoeffiecnt { get; private set; }
+    public GeneracionCongruencial GeneradorRandom { get; private set; }
 
-    public SimulationState(double totalMarketSize, double innovationCoefficent, double imitationCoeffiecnt) {
+    public SimulationState(double totalMarketSize, double innovationCoefficent, double imitationCoeffiecnt, GeneracionCongruencial generadorRandom)
+    {
         TotalMarketSize = totalMarketSize;
         InnovationCoefficent = innovationCoefficent;
         ImitationCoeffiecnt = imitationCoeffiecnt;
         CumulativeAdopters = 0;
         PotentialAdopters = totalMarketSize;
+        GeneradorRandom = generadorRandom;
     }
 }
 
@@ -61,6 +65,7 @@ public class SimulationEngine{
         }
     }
 }
+
 
 /*Evento de Inicio*/
 public class SimulationStartEvent : IEvent{
@@ -106,13 +111,10 @@ public class PeriodicUpdateEvent : IEvent{
         double adoptersFraction = state.CumulativeAdopters / state.TotalMarketSize;
         double potentialAdopters = state.TotalMarketSize - state.CumulativeAdopters;
 
-        //Si ya no hay potenciales adoptantes, nomas programar la sig actualizacion
+        //Si ya no hay potenciales adoptantes, deterna la simulación
         if (potentialAdopters <= 0)
         {
-            if (engine.CurrentTime + _dt <= Timestamp)
-            {
-                engine.ScheduleEvent(new PeriodicUpdateEvent(engine.CurrentTime + _dt, _dt));
-            }
+            Console.WriteLine($"T={engine.CurrentTime:F2}: No hay más adoptantes potenciales. Deteniendo la reprogramación.");
             return;
         }
         //Efectos de innovación e imtiación
@@ -121,7 +123,7 @@ public class PeriodicUpdateEvent : IEvent{
         double expectedNewAdopters = (innovationEffect + imitationEffect) * _dt;
 
         //Determinar nuevos adoptantes reales
-        int actualNewAdopters = (int)Math.Round(expectedNewAdopters);
+        int actualNewAdopters = generadorExponencialPoisson.poisson(expectedNewAdopters, state.GeneradorRandom);
 
         //¿Excede límites?
         actualNewAdopters = Math.Min(actualNewAdopters, (int)potentialAdopters);
@@ -135,11 +137,8 @@ public class PeriodicUpdateEvent : IEvent{
         Console.WriteLine($"T={engine.CurrentTime:F2}: +{actualNewAdopters} adoptantes ->" +
                         $"Total={state.CumulativeAdopters:F0} ({state.CumulativeAdopters / state.TotalMarketSize * 100:F1}%)");
 
-        //Programar siguiente actualización SÍ no hemos terminado
-        if (engine.CurrentTime + _dt <= Timestamp)
-        {
-            engine.ScheduleEvent(new PeriodicUpdateEvent(engine.CurrentTime + _dt, _dt));
-        }
+        //Programar siguiente actualización SÍ no hemos terminado y hay adoptantes potenciales
+        engine.ScheduleEvent(new PeriodicUpdateEvent(engine.CurrentTime + _dt, _dt));
     }
 }
 
@@ -160,10 +159,9 @@ public class SimulationEndEvent : IEvent{
 }
 
 
-/*Función de Generación Exponencial (POISSON)*/
-public class generadorExponencialPoisson
-{
-    public static int poisson(double lambda, Random random)
+/*Función de Generación Exponencial (Poisson)*/
+public class generadorExponencialPoisson{
+    public static int poisson(double lambda, GeneracionCongruencial random)
     {
         double L = Math.Exp(-lambda);
         double p = 1.0;
@@ -178,13 +176,15 @@ public class generadorExponencialPoisson
     }
 }
 
+/*Función de Generación Congruencial (Números Aleatorios)*/
 public class GeneracionCongruencial{
     private long _seed;
     private readonly long _a;
     private readonly long _c;
     private readonly long _m;
 
-    public GeneracionCongruencial(long seed, long a = 1103515245, long c = 12345, long m = 2147483648){
+    public GeneracionCongruencial(long seed, long a = 1103515245, long c = 12345, long m = 2147483648)
+    {
         _seed = seed;
         _a = a;
         _c = c;
@@ -192,19 +192,22 @@ public class GeneracionCongruencial{
     }
 
     //Genera el sig núm pseudo-aleatorio
-    public long NextLong(){
-        _seed = (_a*_seed+_c) % _m;
+    public long NextLong()
+    {
+        _seed = (_a * _seed + _c) % _m;
         return _seed;
     }
 
     //Genera un núm aleatorio (0-1)
-    public double NextDouble(){
+    public double NextDouble()
+    {
         return (double)NextLong() / _m;
     }
 
     //Genera un int aleatorio entre min y max
-    public int Next(int min, int max){
-        return min + (int)(NextDouble() * (max-min));
+    public int Next(int min, int max)
+    {
+        return min + (int)(NextDouble() * (max - min));
     }
 }
 
@@ -219,11 +222,15 @@ class Program
         double simulationDuration = 52;        //Duración en Semanas
         double timeStep = 1.0;             //Intervalo de actualización (1 semana)
 
+        //Generador de números aleatorios
+        GeneracionCongruencial generador = new GeneracionCongruencial(DateTime.Now.Ticks);
+
         //Creamos el estado y motor de la simulación
         SimulationState state = new SimulationState(
             totalMarketSize,
             innovationCoefficent,
-            imitationCoeffiecnt
+            imitationCoeffiecnt,
+            generador
         );
         SimulationEngine engine = new SimulationEngine();
 
