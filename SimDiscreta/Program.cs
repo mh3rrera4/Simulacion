@@ -35,7 +35,6 @@ public class SimulationState
         PotentialAdopters = totalMarketSize;
         GeneradorRandom = generadorRandom;
         SimulationEndTime = simulationEndTime;
-        IsSimulationFinished = false;
     }
 }
 
@@ -75,6 +74,7 @@ public class SimulationEngine
             {
                 evt.Execute(state, this);
             }
+
         }
     }
     public void StopSimulation()
@@ -103,10 +103,7 @@ public class SimulationStartEvent : IEvent{
     {
         //Inicialización del estado
         state.CumulativeAdopters = 0;
-        state.SimulationEndTime = 52.0;
         Console.WriteLine($"T=0.0: Simulacion Iniciada 😎. Mercado={state.TotalMarketSize} || Duración={state.SimulationEndTime} semanas");
-        //engine.ScheduleEvent(new PeriodicUpdateEvent(0.0 + 1.0, 1.0));
-        //engine.ScheduleEvent(new SimulationEndEvent(state.SimulationEndTime));
 
         //Programa el primer evento d actualización periódica
         engine.ScheduleEvent(new PeriodicUpdateEvent(engine.CurrentTime + _dt, _dt));
@@ -131,7 +128,7 @@ public class PeriodicUpdateEvent : IEvent{
         {
             return;
         }
-        //Calcular la tasa de adopción basada en el modelo Bass
+        //Calcular la tasa de adopción
         double adoptersFraction = state.CumulativeAdopters / state.TotalMarketSize;
         double potentialAdopters = state.TotalMarketSize - state.CumulativeAdopters;
 
@@ -158,7 +155,7 @@ public class PeriodicUpdateEvent : IEvent{
         state.PotentialAdopters = state.TotalMarketSize - state.CumulativeAdopters;
 
         //Mostrar resultados
-        Console.WriteLine($"T={engine.CurrentTime:F2}: +{actualNewAdopters} adoptantes ->" +
+        Console.WriteLine($"S={engine.CurrentTime}: +{actualNewAdopters} adoptantes ->" +
                         $"Total={state.CumulativeAdopters:F0} ({state.CumulativeAdopters / state.TotalMarketSize * 100:F1}%)");
 
         double nextEventTime = engine.CurrentTime + _dt;
@@ -184,8 +181,7 @@ public class SimulationEndEvent : IEvent{
         if (!state.IsSimulationFinished && engine.CurrentTime >= Timestamp)
         {
             Console.WriteLine($"\n--- Simulación Finalizada 🎉 en T={engine.CurrentTime:F2} ---");
-            Console.WriteLine($"Total Adoptantes Finales: {state.CumulativeAdopters:F0} / {state.TotalMarketSize}" +
-                            $"{state.CumulativeAdopters / state.TotalMarketSize * 100}%");
+            Console.WriteLine($"Total Adoptantes Finales: {state.CumulativeAdopters:F0} / {state.TotalMarketSize}");
             state.IsSimulationFinished = true;
             engine.StopSimulation();
         }
@@ -250,7 +246,7 @@ class Program
     static void Main(string[] args)
     {
         //Parametros de entrada
-        double totalMarketSize = 10000;    //
+        double totalMarketSize = 100000;    
         double innovationCoefficent = 0.01;    //Coeficiente p (innovación)
         double imitationCoeffiecnt = 0.1;  //Coeficiente q (imitación)
         double simulationDuration = 52;        //Duración en Semanas
@@ -265,7 +261,7 @@ class Program
             innovationCoefficent,
             imitationCoeffiecnt,
             generador,
-            simulationDuration
+            simulationEndTime: simulationDuration
         );
         SimulationEngine engine = new SimulationEngine();
 
