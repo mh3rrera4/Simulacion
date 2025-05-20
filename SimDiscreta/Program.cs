@@ -193,6 +193,7 @@ public class SimulationEndEvent : IEvent{
 public class generadorExponencialPoisson{
     public static int poisson(double lambda, GeneracionCongruencial random)
     {
+        if (lambda <= 0) return 0;
         double L = Math.Exp(-lambda);
         double p = 1.0;
         int k = 0;
@@ -200,7 +201,16 @@ public class generadorExponencialPoisson{
         do
         {
             k++;
-            p *= random.NextDouble();
+            double randVal = random.NextDouble();
+            if (randVal == 0.0 && lambda > 0)
+            {
+                randVal = double.Epsilon;
+            }
+            p *= randVal;
+            if (p == 0.0 && L > 0)
+            {
+                break;
+            }
         } while (p > L);
         return k - 1;
     }
@@ -246,7 +256,7 @@ class Program
     static void Main(string[] args)
     {
         //Parametros de entrada
-        double totalMarketSize = 100000;    
+        double totalMarketSize = 10000;
         double innovationCoefficent = 0.01;    //Coeficiente p (innovación)
         double imitationCoeffiecnt = 0.1;  //Coeficiente q (imitación)
         double simulationDuration = 52;        //Duración en Semanas
